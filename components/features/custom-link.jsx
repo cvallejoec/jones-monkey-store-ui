@@ -26,13 +26,19 @@ export default function ALink({
         style={style}
         onClick={preventDefault}
         dangerouslySetInnerHTML={parseContent(content)}
+        {...props}
       >
         {children}
       </a>
     </Link>
   ) : (
     <Link {...props} href={props.href} legacyBehavior>
-      <a className={className} style={style} onClick={preventDefault}>
+      <a
+        className={className}
+        style={style}
+        onClick={preventDefault}
+        {...props}
+      >
         {children}
       </a>
     </Link>

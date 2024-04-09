@@ -21,6 +21,7 @@ const App = ({ Component, pageProps }) => {
   return (
     <Provider store={store}>
       <PersistGate
+        // @ts-ignore
         persistor={store.__persistor}
         loading={
           <div className="loading-overlay">

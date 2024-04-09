@@ -1,10 +1,18 @@
 module.exports = {
+  // basePath: '/react/riode/demo-11',
+  //   basePath: '~/Development/NextJS/tucarrofast-store-ui',
+  // basePath: '/test/test/test',
+  // distDir: 'build',
   trailingSlash: true,
+  // serverRuntimeConfig: {
+  //   // Will only be available on the server side
+  //   PROJECT_ROOT: __dirname,
+  // },
   async headers() {
     return [
       {
         // matching all API routes
-        source: '/api/:path*',
+        source: '/tcf/api/:path*',
         headers: [
           { key: 'Access-Control-Allow-Credentials', value: 'true' },
           { key: 'Access-Control-Allow-Origin', value: '*' },

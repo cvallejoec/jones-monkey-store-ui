@@ -1,7 +1,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 
-import { useQuery } from "@apollo/react-hooks";
+import { useQuery } from '@apollo/react-hooks';
 
 // Import Apollo Server and Query
 import withApollo from '../server/apollo';
@@ -18,23 +18,25 @@ import InstagramSection from '~/components/partials/home/instagram-section';
 import ProductCollection from '~/components/partials/home/product-collection';
 
 function HomePage() {
-    const { data, loading, error } = useQuery( GET_HOME_DATA, { variables: { productsCount: 5 } } );
-    const featured = data && data.specialProducts.featured;
-    const onSale = data && data.specialProducts.onSale;
-    const topRated = data && data.specialProducts.topRated;
+  const { data, loading, error } = useQuery(GET_HOME_DATA, {
+    variables: { productsCount: 5 },
+  });
+  const featured = data && data.specialProducts.featured;
+  const onSale = data && data.specialProducts.onSale;
+  const topRated = data && data.specialProducts.topRated;
 
-    return (
-        <div className="main home">
-            <Helmet>
-                <title>Riode React eCommerce Template - Home</title>
-            </Helmet>
+  return (
+    <div className="main home">
+      <Helmet>
+        <title>Riode React eCommerce Template - Home</title>
+      </Helmet>
 
-            <h1 className="d-none">Riode React eCommerce Template - Home</h1>
+      <h1 className="d-none">Riode React eCommerce Template - Home</h1>
 
-            <div className="page-content">
-                <IntroSection />
+      <div className="page-content">
+        <IntroSection />
 
-                <FeaturedCollection products={ featured } loading={ loading } />
+        {/* <FeaturedCollection products={ featured } loading={ loading } />
 
                 <PromoSection />
 
@@ -44,12 +46,12 @@ function HomePage() {
 
                 <BestCollection products={ topRated } loading={ loading } />
 
-                <InstagramSection />
-            </div>
+                <InstagramSection /> */}
+      </div>
 
-            <NewsletterModal />
-        </div>
-    )
+      <NewsletterModal />
+    </div>
+  );
 }
 
-export default withApollo( { ssr: typeof window === 'undefined' } )( HomePage );
+export default withApollo({ ssr: typeof window === 'undefined' })(HomePage);

@@ -25,6 +25,6 @@
     "**/*.ts",
     "**/*.tsx",
     "components/features/product/product-three.jsx"
-, "components/common/sticky-footer.jsx"  ],
+  ],
   "exclude": ["node_modules"]
 }

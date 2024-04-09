@@ -82,14 +82,7 @@ export default function Header(props) {
           </div>
 
           <div className="header-right">
-            <LoginModal />
-
-            <ALink href="/pages/wishlist" className="wishlist">
-              <i className="d-icon-heart"></i>
-            </ALink>
-
             <span className="divider mr-4"></span>
-
             <CartMenu />
           </div>
         </div>

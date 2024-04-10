@@ -28,7 +28,7 @@ function HomePage() {
   return (
     <div className="main home">
       <Helmet>
-        <title>Riode React eCommerce Template - Home</title>
+        <title>JonesMonkey - Inicio</title>
       </Helmet>
 
       <h1 className="d-none">Riode React eCommerce Template - Home</h1>

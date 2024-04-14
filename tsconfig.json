@@ -24,7 +24,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "components/features/product/product-three.jsx"
+    "components/features/product/product-three.tsx"
   ],
   "exclude": ["node_modules"]
 }

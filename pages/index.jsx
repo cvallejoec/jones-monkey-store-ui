@@ -36,17 +36,17 @@ function HomePage() {
       <div className="page-content">
         <IntroSection />
 
-        {/* <FeaturedCollection products={ featured } loading={ loading } />
+        <FeaturedCollection products={featured} loading={loading} />
 
-                <PromoSection />
+        <PromoSection />
 
-                <ProductCollection products={ onSale } loading={ loading } />
+        <ProductCollection products={onSale} loading={loading} />
 
-                <CtaSection />
+        <CtaSection />
 
-                <BestCollection products={ topRated } loading={ loading } />
+        <BestCollection products={topRated} loading={loading} />
 
-                <InstagramSection /> */}
+        <InstagramSection />
       </div>
 
       <NewsletterModal />

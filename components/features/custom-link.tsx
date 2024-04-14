@@ -8,6 +8,12 @@ export default function ALink({
   content,
   style,
   ...props
+}: {
+  children: any;
+  className?: string;
+  content?: string;
+  style?: any;
+  [x: string]: any;
 }) {
   const preventDefault = (e) => {
     if (props.href === '#') {

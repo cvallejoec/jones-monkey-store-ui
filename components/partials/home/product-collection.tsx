@@ -9,16 +9,18 @@ import { fadeIn } from '~/utils/data/keyframes';
 import { productSlider } from '~/utils/data/carousel';
 
 export default function ProductCollection(props) {
-  const { products, loading } = props;
+  const { products = [], loading } = props;
 
   return (
     <>
+      {/* @ts-ignore */}
       <Reveal keyframes={fadeIn} triggerOnce>
         <section className="products-section container pt-6 mt-10 pb-6 mb-lg-10">
           <div className="row gutter-no align-items-center">
             <div className="col-lg-6">
               <div className="row gutter-no">
                 <div className="col-xs-6">
+                  {/* @ts-ignore */}
                   <Reveal keyframes={fadeIn} delay={300} triggerOnce>
                     <div
                       className="banner banner-fixed banner-sm"
@@ -50,6 +52,7 @@ export default function ProductCollection(props) {
                       </div>
                     </div>
 
+                    {/* @ts-ignore */}
                     <Reveal keyframes={fadeIn} delay={100} triggerOnce>
                       <div
                         className="banner banner-fixed banner-sm"
@@ -71,6 +74,7 @@ export default function ProductCollection(props) {
                 </div>
 
                 <div className="col-xs-6">
+                  {/* @ts-ignore */}
                   <Reveal keyframes={fadeIn} delay={500} triggerOnce>
                     <div
                       className="banner banner-fixed"
@@ -143,6 +147,7 @@ export default function ProductCollection(props) {
             <div className="col-lg-6">
               <div className="row gutter-no">
                 <div className="col-xs-6">
+                  {/* @ts-ignore */}
                   <Reveal keyframes={fadeIn} delay={100} triggerOnce>
                     <div
                       className="banner banner-fixed"
@@ -176,6 +181,7 @@ export default function ProductCollection(props) {
                   </Reveal>
                 </div>
                 <div className="col-xs-6">
+                  {/* @ts-ignore */}
                   <Reveal keyframes={fadeIn} delay={300} triggerOnce>
                     <div
                       className="banner banner-fixed banner-sm"
@@ -208,6 +214,7 @@ export default function ProductCollection(props) {
                     </div>
                   </Reveal>
 
+                  {/* @ts-ignore */}
                   <Reveal keyframes={fadeIn} delay={400} triggerOnce>
                     <div
                       className="banner banner-fixed banner-sm"

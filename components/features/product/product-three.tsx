@@ -1,16 +1,27 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { connect } from 'react-redux';
 
 import ALink from '~/components/features/custom-link';
-
 import { cartActions } from '~/store/cart';
 import { modalActions } from '~/store/modal';
 import { wishlistActions } from '~/store/wishlist';
-
 import { toDecimal } from '~/utils';
 
-function ProductThree(props) {
+import { Product } from '~/utils/types';
+
+type ProductThreeProps = {
+  product: Product;
+  adClass?: string;
+  toggleWishlist?: (product: any) => void;
+  wishlist: any;
+  addToCart: (product: any) => void;
+  openQuickview: (productSlug: string) => void;
+  isCategory?: boolean;
+  isNew?: boolean;
+};
+
+const ProductThree: FC<ProductThreeProps> = (props) => {
   const {
     product,
     adClass,
@@ -18,11 +29,12 @@ function ProductThree(props) {
     wishlist,
     addToCart,
     openQuickview,
+    isNew = false,
     isCategory = true,
   } = props;
 
   // decide if the product is wishlisted
-  let isWishlisted;
+  let isWishlisted: boolean;
   isWishlisted =
     wishlist.findIndex((item) => item.slug === product.slug) > -1
       ? true
@@ -54,21 +66,21 @@ function ProductThree(props) {
   return (
     <div
       className={`product product-classic ${adClass} ${
-        product.variants.length > 0 ? 'product-variable' : ''
+        product.variants?.length > 0 ? 'product-variable' : ''
       }`}
     >
       <figure className="product-media">
         <ALink href={`/product/default/${product.slug}`}>
           <LazyLoadImage
             alt="product"
-            src={process.env.NEXT_PUBLIC_ASSET_URI + product.pictures[0].url}
+            src={product.mainImage}
             threshold={500}
             effect="opacity"
             width="300"
             height="338"
           />
 
-          {product.pictures.length >= 2 ? (
+          {/* {product.pictures.length >= 2 ? (
             <LazyLoadImage
               alt="product"
               src={process.env.NEXT_PUBLIC_ASSET_URI + product.pictures[1].url}
@@ -80,21 +92,17 @@ function ProductThree(props) {
             />
           ) : (
             ''
-          )}
+          )} */}
         </ALink>
 
         <div className="product-label-group">
-          {product.is_new ? (
-            <label className="product-label label-new">New</label>
-          ) : (
-            ''
-          )}
-          {product.is_top ? (
+          {isNew && <label className="product-label label-new">Nuevo</label>}
+          {/* {product.is_top ? (
             <label className="product-label label-top">Top</label>
           ) : (
             ''
-          )}
-          {product.discount > 0 ? (
+          )} */}
+          {/* {product.discount > 0 ? (
             product.variants.length === 0 ? (
               <label className="product-label label-sale">
                 {product.discount}% OFF
@@ -104,12 +112,12 @@ function ProductThree(props) {
             )
           ) : (
             ''
-          )}
+          )} */}
         </div>
       </figure>
 
       <div className="product-details">
-        {isCategory ? (
+        {/* {isCategory ? (
           <div className="product-cat">
             {product.categories
               ? product.categories.map((item, index) => (
@@ -129,7 +137,7 @@ function ProductThree(props) {
           </div>
         ) : (
           ''
-        )}
+        )} */}
 
         <h3 className="product-name">
           <ALink href={`/product/default/${product.slug}`}>
@@ -138,7 +146,7 @@ function ProductThree(props) {
         </h3>
 
         <div className="product-price">
-          {product.price[0] !== product.price[1] ? (
+          {/* {product.price[0] !== product.price[1] ? (
             product.variants.length === 0 ||
             (product.variants.length > 0 && !product.variants[0].price) ? (
               <>
@@ -152,10 +160,14 @@ function ProductThree(props) {
             )
           ) : (
             <ins className="new-price">${toDecimal(product.price[0])}</ins>
-          )}
+          )} */}
+          <>
+            <ins className="new-price">${toDecimal(product.finalPrice)}</ins>
+            <del className="old-price">${toDecimal(product.finalPrice)}</del>
+          </>
         </div>
 
-        <div className="ratings-container">
+        {/* <div className="ratings-container">
           <div className="ratings-full">
             <span
               className="ratings"
@@ -172,10 +184,10 @@ function ProductThree(props) {
           >
             ( {product.reviews} reviews )
           </ALink>
-        </div>
+        </div> */}
 
         <div className="product-action">
-          {product.variants.length > 0 ? (
+          {product.variants?.length > 0 ? (
             <ALink
               href={`/product/default/${product.slug}`}
               className="btn-product btn-cart"
@@ -216,7 +228,7 @@ function ProductThree(props) {
       </div>
     </div>
   );
-}
+};
 
 function mapStateToProps(state) {
   return {

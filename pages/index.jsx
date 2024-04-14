@@ -36,7 +36,7 @@ function HomePage() {
       <div className="page-content">
         <IntroSection />
 
-        <FeaturedCollection products={featured} loading={loading} />
+        <FeaturedCollection />
 
         <PromoSection />
 

@@ -60,4 +60,5 @@ function OwlCarousel(props) {
   );
 }
 
+// @ts-ignore
 export default React.memo(OwlCarousel);

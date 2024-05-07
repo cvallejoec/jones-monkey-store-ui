@@ -77,7 +77,7 @@ const ProductThree: FC<ProductThreeProps> = (props) => {
             threshold={500}
             effect="opacity"
             width="300"
-            height="338"
+            height="300"
           />
 
           {/* {product.pictures.length >= 2 ? (

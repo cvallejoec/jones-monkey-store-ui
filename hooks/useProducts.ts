@@ -34,6 +34,8 @@ export const useProducts = (
   });
   const { get } = useApi();
   const getProducts = useCallback(async () => {
+    // Wait 3 seconds for testing purposes
+    // await new Promise((resolve) => setTimeout(resolve, 3000));
     const query = querystring.stringify(queryParams);
     return await get(`/products/store?${query}`);
   }, [queryParams]);

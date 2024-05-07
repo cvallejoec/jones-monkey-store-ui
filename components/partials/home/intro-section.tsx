@@ -167,125 +167,160 @@ function IntroSection() {
       </OwlCarousel>
 
       <div className="row gutter-no">
-        <div className="col-lg-3 col-sm-6">
-          <div className="intro-banner1 banner banner-fixed">
-            <figure>
-              <LazyLoadImage
-                threshold={300}
-                src="./images/home/categories/1.jpg"
-                effect="opacity"
-                alt="category"
-                width="480"
-                height="400"
-                style={{ backgroundColor: '#444' }}
-              />
-            </figure>
+        {store.firstSection1Header && (
+          <div className="col-lg-3 col-sm-6">
+            <div className="intro-banner1 banner banner-fixed">
+              <figure>
+                <LazyLoadImage
+                  threshold={300}
+                  // src="./images/home/categories/1.jpg"
+                  src={store.firstSection1}
+                  effect="opacity"
+                  alt="category"
+                  width="480"
+                  height="400"
+                  style={{ backgroundColor: '#444' }}
+                />
+              </figure>
 
-            <div className="banner-content y-50">
+              <div className="banner-content y-50">
+                {/* @ts-ignore */}
+                <Reveal keyframes={fadeIn} triggerOnce>
+                  <h3 className="banner-title font-secondary font-weight-normal text-uppercase text-white">
+                    {/* Buy 2, <strong className="text-primary">Get 1 Free*</strong>
+                    <br />
+                    on everything */}
+                    {store.firstSection1Header}
+                  </h3>
+                  <p className="text-white mb-6">
+                    {/* Add 3 products to cart, Terms apply */}
+                    {store.firstSection1Subtitle}
+                  </p>
+                  <ALink
+                    // href="/shop"
+                    href={store.firstSection1Link}
+                    className="btn btn-outline btn-white btn-md"
+                  >
+                    {store.firstSection1Button}
+                  </ALink>
+                </Reveal>
+              </div>
+            </div>
+          </div>
+        )}
+        {store.firstSection2Header && (
+          <div className="col-lg-3 col-sm-6">
+            <div
+              className="category category-absolute category-overlay overlay-dark text-white"
+              style={{ backgroundColor: '#333' }}
+            >
+              <ALink
+                href={{
+                  pathname: store.firstSection2Link,
+                  // query: { category: 'women-s' },
+                }}
+              >
+                <figure className="category-media">
+                  <LazyLoadImage
+                    threshold={300}
+                    // src="./images/home/categories/2.jpg"
+                    src={store.firstSection2}
+                    effect="opacity"
+                    alt="category"
+                    width="480"
+                    height="400"
+                  />
+                </figure>
+              </ALink>
+
               {/* @ts-ignore */}
               <Reveal keyframes={fadeIn} triggerOnce>
-                <h3 className="banner-title font-secondary font-weight-normal text-uppercase text-white">
-                  Buy 2, <strong className="text-primary">Get 1 Free*</strong>
-                  <br />
-                  on everything
-                </h3>
-                <p className="text-white mb-6">
-                  Add 3 products to cart, Terms apply
-                </p>
-                <ALink
-                  href="/shop"
-                  className="btn btn-outline btn-white btn-md"
-                >
-                  Shop Collection
-                </ALink>
+                <div className="category-content x-50 y-50">
+                  <h4 className="category-name text-uppercase">
+                    {store.firstSection2Header}
+                  </h4>
+                </div>
               </Reveal>
             </div>
           </div>
-        </div>
-        <div className="col-lg-3 col-sm-6">
-          <div
-            className="category category-absolute category-overlay overlay-dark text-white"
-            style={{ backgroundColor: '#333' }}
-          >
-            <ALink href={{ pathname: '/shop', query: { category: 'women-s' } }}>
-              <figure className="category-media">
+        )}
+
+        {store.firstSection3Header && (
+          <div className="col-lg-3 col-sm-6">
+            <div
+              className="intro-banner2 banner banner-fixed"
+              style={{ backgroundColor: '#D3D4D6' }}
+            >
+              <figure>
                 <LazyLoadImage
                   threshold={300}
-                  src="./images/home/categories/2.jpg"
+                  // src="./images/home/categories/3.jpg"
+                  src={store.firstSection3}
                   effect="opacity"
                   alt="category"
                   width="480"
                   height="400"
                 />
               </figure>
-            </ALink>
-
-            {/* @ts-ignore */}
-            <Reveal keyframes={fadeIn} triggerOnce>
-              <div className="category-content x-50 y-50">
-                <h4 className="category-name text-uppercase">women's</h4>
+              <div className="banner-content y-50">
+                {/* @ts-ignore */}
+                <Reveal keyframes={fadeIn} triggerOnce>
+                  <h4 className="banner-subtitle text-uppercase font-weight-bold ls-normal text-primary">
+                    {store.firstSection3Title}
+                  </h4>
+                  <h3 className="banner-title font-secondary font-weight-normal text-uppercase text-white">
+                    {/* <span className="d-block">20% off everything,</span> */}
+                    {/* <strong>Even Sale!</strong> */}
+                    <span className="d-block">{store.firstSection3Header}</span>
+                  </h3>
+                  <ALink
+                    href={store.firstSection3Link}
+                    className="btn btn-outline btn-white"
+                  >
+                    {store.firstSection3Button}
+                  </ALink>
+                </Reveal>
               </div>
-            </Reveal>
+            </div>
           </div>
-        </div>
-        <div className="col-lg-3 col-sm-6 order-lg-last order-sm-auto order-last">
-          <div
-            className="category category-absolute category-overlay overlay-dark text-white"
-            style={{ backgroundColor: '#333' }}
-          >
-            <ALink href={{ pathname: '/shop', query: { category: 'men-s' } }}>
-              <figure className="category-media">
-                <LazyLoadImage
-                  threshold={300}
-                  src="./images/home/categories/4.jpg"
-                  effect="opacity"
-                  alt="category"
-                  width="480"
-                  height="400"
-                />
-              </figure>
-            </ALink>
+        )}
 
-            {/* @ts-ignore */}
-            <Reveal keyframes={fadeIn} triggerOnce>
-              <div className="category-content x-50 y-50">
-                <h4 className="category-name text-uppercase">Men's</h4>
-              </div>
-            </Reveal>
-          </div>
-        </div>
-        <div className="col-lg-3 col-sm-6">
-          <div
-            className="intro-banner2 banner banner-fixed"
-            style={{ backgroundColor: '#D3D4D6' }}
-          >
-            <figure>
-              <LazyLoadImage
-                threshold={300}
-                src="./images/home/categories/3.jpg"
-                effect="opacity"
-                alt="category"
-                width="480"
-                height="400"
-              />
-            </figure>
-            <div className="banner-content y-50">
+        {store.firstSection4Header && (
+          <div className="col-lg-3 col-sm-6 order-lg-last order-sm-auto order-last">
+            <div
+              className="category category-absolute category-overlay overlay-dark text-white"
+              style={{ backgroundColor: '#333' }}
+            >
+              <ALink
+                href={{
+                  pathname: store.firstSection4Link,
+                  // query: { category: 'men-s' },
+                }}
+              >
+                <figure className="category-media">
+                  <LazyLoadImage
+                    threshold={300}
+                    // src="./images/home/categories/4.jpg"
+                    src={store.firstSection4}
+                    effect="opacity"
+                    alt="category"
+                    width="480"
+                    height="400"
+                  />
+                </figure>
+              </ALink>
+
               {/* @ts-ignore */}
               <Reveal keyframes={fadeIn} triggerOnce>
-                <h4 className="banner-subtitle text-uppercase font-weight-bold ls-normal text-primary">
-                  Best Sellers
-                </h4>
-                <h3 className="banner-title font-secondary font-weight-normal text-uppercase text-white">
-                  <span className="d-block">20% off everything,</span>
-                  <strong>Even Sale!</strong>
-                </h3>
-                <ALink href="/shop" className="btn btn-outline btn-white">
-                  Shop Collection
-                </ALink>
+                <div className="category-content x-50 y-50">
+                  <h4 className="category-name text-uppercase">
+                    {store.firstSection4Header}
+                  </h4>
+                </div>
               </Reveal>
             </div>
           </div>
-        </div>
+        )}
       </div>
     </section>
   );

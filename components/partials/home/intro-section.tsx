@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Reveal from 'react-awesome-reveal';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
@@ -8,51 +8,132 @@ import OwlCarousel from '~/components/features/owl-carousel';
 
 import { fadeInUpShorter, fadeInUp, fadeIn } from '~/utils/data/keyframes';
 import { introSlider } from '~/utils/data/carousel';
+import { useStore } from '~/hooks';
 
 function IntroSection() {
+  const [hero, setHero] = useState<
+    {
+      image: string;
+      subtitle: string;
+      title: string;
+      header: string;
+      link: string;
+      button: string;
+    }[]
+  >([]);
+  const { store } = useStore();
+  const {
+    hero1,
+    hero1Button,
+    hero1Header,
+    hero1Link,
+    hero1Subtitle,
+    hero1Title,
+    hero2,
+    hero2Button,
+    hero2Header,
+    hero2Link,
+    hero2Subtitle,
+    hero2Title,
+    hero3,
+    hero3Button,
+    hero3Header,
+    hero3Link,
+    hero3Subtitle,
+    hero3Title,
+  } = store;
+
+  useEffect(() => {
+    // Append the hero images to the state conditionally if hero images are available
+    if (hero1) {
+      setHero((prev) => [
+        ...prev,
+        {
+          image: hero1,
+          subtitle: hero1Subtitle,
+          title: hero1Title,
+          header: hero1Header,
+          link: hero1Link,
+          button: hero1Button,
+        },
+      ]);
+    }
+
+    if (hero2) {
+      setHero((prev) => [
+        ...prev,
+        {
+          image: hero2,
+          subtitle: hero2Subtitle,
+          title: hero2Title,
+          header: hero2Header,
+          link: hero2Link,
+          button: hero2Button,
+        },
+      ]);
+    }
+
+    if (hero3) {
+      setHero((prev) => [
+        ...prev,
+        {
+          image: hero3,
+          subtitle: hero3Subtitle,
+          title: hero3Title,
+          header: hero3Header,
+          link: hero3Link,
+          button: hero3Button,
+        },
+      ]);
+    }
+  }, []);
+
   return (
     <section className="intro-section">
       <OwlCarousel
         adClass="owl-theme owl-dot-inner owl-nav-fade owl-dot-white intro-slider animation-slider"
         options={introSlider}
       >
-        <div
-          className="intro-slide1 banner banner-fixed"
-          style={{
-            backgroundImage: `url(./images/home/slides/hero-2.jpg)`,
-            backgroundColor: '#666',
-          }}
-        >
-          <div className="banner-content x-50 y-50 text-center">
-            <Reveal keyframes={fadeIn} duration={1200} delay={500}>
-              <h4 className="banner-subtitle font-weight-semi-bold text-primary">
-                Nueva Colección
-              </h4>
-            </Reveal>
+        {hero.map((item, index) => (
+          <div
+            key={index}
+            className="intro-slide1 banner banner-fixed"
+            style={{
+              backgroundImage: `url(${item.image})`,
+              backgroundColor: '#666',
+            }}
+          >
+            <div className="banner-content x-50 y-50 text-center">
+              {/* @ts-ignore */}
+              <Reveal keyframes={fadeIn} duration={1200} delay={500}>
+                <h4 className="banner-subtitle font-weight-semi-bold text-primary">
+                  {item.title}
+                </h4>
+              </Reveal>
 
-            <Reveal keyframes={fadeInUp} duration={1200} delay={800}>
-              <h3 className="banner-title font-secondary text-uppercase text-white">
-                {/* Brilla en el gimnasio */}
-                {/* ¡Hazlo con estilo! */}
-                Ropa que inspira
-              </h3>
-            </Reveal>
+              {/* @ts-ignore */}
+              <Reveal keyframes={fadeInUp} duration={1200} delay={800}>
+                <h3 className="banner-title font-secondary text-uppercase text-white">
+                  {item.header}
+                </h3>
+              </Reveal>
 
-            <Reveal keyframes={fadeInUp} duration={1200} delay={1100}>
-              <p className="ls-normal">
-                Potencia tu estilo a partir de <strong>$5.00</strong>
-              </p>
-            </Reveal>
+              {/* @ts-ignore */}
+              <Reveal keyframes={fadeInUp} duration={1200} delay={1100}>
+                <p className="ls-normal">{item.subtitle}</p>
+              </Reveal>
 
-            <Reveal keyframes={fadeInUp} duration={1200} delay={1300}>
-              <ALink href="/shop" className="btn btn-outline btn-white">
-                Compra Ahora
-              </ALink>
-            </Reveal>
+              {/* @ts-ignore */}
+              <Reveal keyframes={fadeInUp} duration={1200} delay={1300}>
+                <ALink href={item.link} className="btn btn-outline btn-white">
+                  {item.button}
+                </ALink>
+              </Reveal>
 
-            <h4 className="bg-text w-100">{new Date().getFullYear()}</h4>
+              <h4 className="bg-text w-100">{new Date().getFullYear()}</h4>
+            </div>
           </div>
-        </div>
+        ))}
         <div
           className="intro-slide2 banner banner-fixed"
           style={{
@@ -61,18 +142,21 @@ function IntroSection() {
           }}
         >
           <div className="banner-content x-50 y-50 text-center">
+            {/* @ts-ignore */}
             <Reveal keyframes={fadeIn} duration={2000} delay={300}>
               <h3 className="banner-title font-secondary text-white text-uppercase font-weight-bold">
                 Brand Lookbook 2021
               </h3>
             </Reveal>
 
+            {/* @ts-ignore */}
             <Reveal keyframes={fadeIn} duration={1500} delay={900}>
               <p className="text-white">
                 International Delivery From Just $99.00
               </p>
             </Reveal>
 
+            {/* @ts-ignore */}
             <Reveal keyframes={fadeInUpShorter} duration={1000} delay={1000}>
               <ALink href="/shop" className="btn btn-white btn-outline">
                 Discover Shop<i className="d-icon-arrow-right"></i>
@@ -98,6 +182,7 @@ function IntroSection() {
             </figure>
 
             <div className="banner-content y-50">
+              {/* @ts-ignore */}
               <Reveal keyframes={fadeIn} triggerOnce>
                 <h3 className="banner-title font-secondary font-weight-normal text-uppercase text-white">
                   Buy 2, <strong className="text-primary">Get 1 Free*</strong>
@@ -135,6 +220,7 @@ function IntroSection() {
               </figure>
             </ALink>
 
+            {/* @ts-ignore */}
             <Reveal keyframes={fadeIn} triggerOnce>
               <div className="category-content x-50 y-50">
                 <h4 className="category-name text-uppercase">women's</h4>
@@ -160,6 +246,7 @@ function IntroSection() {
               </figure>
             </ALink>
 
+            {/* @ts-ignore */}
             <Reveal keyframes={fadeIn} triggerOnce>
               <div className="category-content x-50 y-50">
                 <h4 className="category-name text-uppercase">Men's</h4>
@@ -183,6 +270,7 @@ function IntroSection() {
               />
             </figure>
             <div className="banner-content y-50">
+              {/* @ts-ignore */}
               <Reveal keyframes={fadeIn} triggerOnce>
                 <h4 className="banner-subtitle text-uppercase font-weight-bold ls-normal text-primary">
                   Best Sellers

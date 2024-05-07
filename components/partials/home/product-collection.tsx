@@ -7,9 +7,63 @@ import ALink from '~/components/features/custom-link';
 
 import { fadeIn } from '~/utils/data/keyframes';
 import { productSlider } from '~/utils/data/carousel';
+import { useCatalogues, useProducts } from '~/hooks';
+import { useEffect, useState } from 'react';
 
-export default function ProductCollection(props) {
-  const { products = [], loading } = props;
+export default function ProductCollection() {
+  const { catalogues, loading: loadingCatalogues } = useCatalogues({
+    // Randomize the order of the catalogues
+    formatResponse: (response) => response.sort(() => Math.random() - 0.5),
+  });
+  const [proceedToFirstRequest, setProceedToFirstRequest] =
+    useState<boolean>(false);
+  const [proceedToSecondRequest, setProceedToSecondRequest] =
+    useState<boolean>(false);
+  const {
+    products: firstCatalogueProducts,
+    onMultiChange: onFirstCatalogueProducstParamsChange,
+  } = useProducts({
+    proceedToRequest: proceedToFirstRequest,
+    query: {
+      random: true,
+      take: 2,
+    },
+  });
+  const {
+    products: secondCatalogueProducts,
+    onMultiChange: onSecondCatalogueProducstParamsChange,
+  } = useProducts({
+    proceedToRequest: proceedToSecondRequest,
+    query: {
+      random: true,
+      take: 2,
+    },
+  });
+
+  useEffect(() => {
+    if (catalogues.length === 0) return; // TODO: Handle this case
+    if (catalogues.length === 1) return; // TODO: Handle this case
+
+    console.log('ya llegaron los catalogos');
+
+    // Get the products for the first catalogue
+    const firstCatalogue = catalogues[0];
+    const firstCatalogueSlug = firstCatalogue.slug;
+
+    onFirstCatalogueProducstParamsChange({
+      catalogueSlug: firstCatalogueSlug,
+    });
+    setProceedToFirstRequest(true);
+
+    // Get the products for the second catalogue
+    const secondCatalogue = catalogues[1];
+    const secondCatalogueSlug = secondCatalogue.slug;
+
+    onSecondCatalogueProducstParamsChange({
+      catalogueSlug: secondCatalogueSlug,
+    });
+    setProceedToSecondRequest(true);
+  }, [catalogues]);
 
   return (
     <>
@@ -112,8 +166,7 @@ export default function ProductCollection(props) {
 
             <div className="col-lg-6 order-lg-first mb-4 mb-lg-0">
               <div className="product-wrapper">
-                <h2 className="title title-simple">Shoes Collection</h2>
-                {loading ? (
+                {loadingCatalogues ? (
                   <OwlCarousel
                     adClass="owl-theme owl-nav-full"
                     options={productSlider}
@@ -126,18 +179,23 @@ export default function ProductCollection(props) {
                     ))}
                   </OwlCarousel>
                 ) : (
-                  <OwlCarousel
-                    adClass="owl-theme owl-nav-full"
-                    options={productSlider}
-                  >
-                    {products.slice(0, 2).map((item) => (
-                      <ProductTwo
-                        product={item}
-                        key={`featured-${item.slug}`}
-                        isCategory={false}
-                      />
-                    ))}
-                  </OwlCarousel>
+                  <>
+                    <h2 className="title title-simple">
+                      {catalogues[0]?.name}
+                    </h2>
+                    <OwlCarousel
+                      adClass="owl-theme owl-nav-full"
+                      options={productSlider}
+                    >
+                      {firstCatalogueProducts.map((item) => (
+                        <ProductTwo
+                          product={item}
+                          key={`featured-${item.slug}`}
+                          showCategories={true}
+                        />
+                      ))}
+                    </OwlCarousel>
+                  </>
                 )}
               </div>
             </div>
@@ -238,8 +296,7 @@ export default function ProductCollection(props) {
 
             <div className="col-lg-6">
               <div className="product-wrapper">
-                <h2 className="title title-simple">Bags Collection</h2>
-                {loading ? (
+                {loadingCatalogues ? (
                   <OwlCarousel
                     adClass="owl-theme owl-nav-full"
                     options={productSlider}
@@ -252,18 +309,23 @@ export default function ProductCollection(props) {
                     ))}
                   </OwlCarousel>
                 ) : (
-                  <OwlCarousel
-                    adClass="owl-theme owl-nav-full"
-                    options={productSlider}
-                  >
-                    {products.slice(2, 4).map((item) => (
-                      <ProductTwo
-                        product={item}
-                        key={`featured-${item.slug}`}
-                        isCategory={false}
-                      />
-                    ))}
-                  </OwlCarousel>
+                  <>
+                    <h2 className="title title-simple">
+                      {catalogues[1]?.name}{' '}
+                    </h2>
+                    <OwlCarousel
+                      adClass="owl-theme owl-nav-full"
+                      options={productSlider}
+                    >
+                      {secondCatalogueProducts.map((item) => (
+                        <ProductTwo
+                          product={item}
+                          key={`featured-${item.slug}`}
+                          showCategories={false}
+                        />
+                      ))}
+                    </OwlCarousel>
+                  </>
                 )}
               </div>
             </div>

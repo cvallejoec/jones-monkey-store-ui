@@ -34,11 +34,11 @@ function HomePage() {
       <h1 className="d-none">Riode React eCommerce Template - Home</h1>
 
       <div className="page-content">
-        <IntroSection />
+        {/* <IntroSection />
 
         <FeaturedCollection />
 
-        <PromoSection />
+        <PromoSection /> */}
 
         <ProductCollection products={onSale} loading={loading} />
 

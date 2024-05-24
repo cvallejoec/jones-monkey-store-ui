@@ -19,6 +19,7 @@ type ProductThreeProps = {
   openQuickview: (productSlug: string) => void;
   isCategory?: boolean;
   isNew?: boolean;
+  showStars?: boolean;
 };
 
 const ProductThree: FC<ProductThreeProps> = (props) => {
@@ -31,6 +32,7 @@ const ProductThree: FC<ProductThreeProps> = (props) => {
     openQuickview,
     isNew = false,
     isCategory = true,
+    showStars = false,
   } = props;
 
   // decide if the product is wishlisted
@@ -39,6 +41,9 @@ const ProductThree: FC<ProductThreeProps> = (props) => {
     wishlist.findIndex((item) => item.slug === product.slug) > -1
       ? true
       : false;
+
+  // Generate random number from 4.3 to 5
+  const rating = Math.random() * (5 - 4.3) + 4.3;
 
   const showQuickviewHandler = () => {
     openQuickview(product.slug);
@@ -60,7 +65,8 @@ const ProductThree: FC<ProductThreeProps> = (props) => {
 
   const addToCartHandler = (e) => {
     e.preventDefault();
-    addToCart({ ...product, qty: 1, price: product.price[0] });
+    console.info('ProductThree addToCartHandler');
+    // addToCart({ ...product, qty: 1, price: product.price[0] });
   };
 
   return (
@@ -167,24 +173,26 @@ const ProductThree: FC<ProductThreeProps> = (props) => {
           </>
         </div>
 
-        {/* <div className="ratings-container">
-          <div className="ratings-full">
-            <span
-              className="ratings"
-              style={{ width: 20 * product.ratings + '%' }}
-            ></span>
-            <span className="tooltiptext tooltip-top">
-              {toDecimal(product.ratings)}
-            </span>
-          </div>
+        {showStars && (
+          <div className="ratings-container">
+            <div className="ratings-full">
+              <span
+                className="ratings"
+                style={{ width: 20 * rating + '%' }}
+              ></span>
+              <span className="tooltiptext tooltip-top">
+                {toDecimal(rating)}
+              </span>
+            </div>
 
-          <ALink
-            href={`/product/default/${product.slug}`}
-            className="rating-reviews"
-          >
-            ( {product.reviews} reviews )
-          </ALink>
-        </div> */}
+            <ALink
+              href={`/product/default/${product.slug}`}
+              className="rating-reviews"
+            >
+              ( {rating} reviews )
+            </ALink>
+          </div>
+        )}
 
         <div className="product-action">
           {product.variants?.length > 0 ? (
@@ -199,11 +207,11 @@ const ProductThree: FC<ProductThreeProps> = (props) => {
             <a
               href="#"
               className="btn-product btn-cart"
-              title="Add to cart"
+              title="Añadir al carrito"
               onClick={addToCartHandler}
             >
               <i className="d-icon-bag"></i>
-              <span>Add to cart</span>
+              <span>Añadir</span>
             </a>
           )}
           <a

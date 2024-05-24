@@ -6,9 +6,10 @@ import ProductThree from '~/components/features/product/product-three';
 import { featuredSlider } from '~/utils/data/carousel';
 import { fadeIn } from '~/utils/data/keyframes';
 
-import { useProducts } from 'hooks';
+import { useProducts } from '~/hooks';
 
-function FeaturedCollection() {
+function BestCollection(props) {
+  // const { products, loading } = props;
   const { products, loading } = useProducts({
     query: {
       random: true,
@@ -16,34 +17,35 @@ function FeaturedCollection() {
     },
   });
 
-  console.log('products', products);
-
   return (
     <>
-      {/*@ts-ignore */}
+      {/* @ts-ignore */}
       <Reveal keyframes={fadeIn} delay={300} duration={1200} triggerOnce>
-        <section className="container mt-10 pt-7">
-          <h2 className="title title-simple">Productos Destacados</h2>
+        <section className="container pt-10">
+          <h2 className="title title-simple">Más Vendidos</h2>
 
           {loading ? (
             <OwlCarousel adClass="owl-theme" options={featuredSlider}>
               {[1, 2, 3, 4, 5].map((item) => (
                 <div
                   className="product-loading-overlay"
-                  key={'featured-skel-' + item}
+                  key={'best-skel-' + item}
                 ></div>
               ))}
             </OwlCarousel>
           ) : (
             <OwlCarousel adClass="owl-theme" options={featuredSlider}>
-              {products.map((item, index) => (
-                <ProductThree
-                  isNew
-                  isCategory={false}
-                  product={item}
-                  key={`featured-product ${index}`}
-                />
-              ))}
+              {products &&
+                products
+                  .slice(0, 4)
+                  .map((item, index) => (
+                    <ProductThree
+                      isCategory={false}
+                      product={item}
+                      key={`best-product ${index}`}
+                      showStars
+                    />
+                  ))}
             </OwlCarousel>
           )}
         </section>
@@ -52,4 +54,4 @@ function FeaturedCollection() {
   );
 }
 
-export default React.memo(FeaturedCollection);
+export default React.memo(BestCollection);
